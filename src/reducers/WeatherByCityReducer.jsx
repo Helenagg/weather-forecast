@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import WeatherService from '../services/WeatherServices';
+import { toast } from "./notificationReducer";
 
 //TODO: Notification for error
 
@@ -35,6 +36,7 @@ export const getWeatherByCity = (cityName, apiKey) => {
         } catch (error) {
             console.error(error);
             dispatch(setWeatherError({ message: error.message, status: error.response?.error}))
+            dispatch(toast('No se ha podido encontrar el clima para la ciudad seleccionada'))
         }
     }
 }

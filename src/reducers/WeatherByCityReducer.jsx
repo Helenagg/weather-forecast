@@ -1,4 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import WeatherService from '../services/WeatherServices';
+
+//TODO: Notification for error
 
 const weatherByCitySlice = createSlice({
     name: 'weatherByCity',
@@ -10,7 +13,7 @@ const weatherByCitySlice = createSlice({
             return { ...state, data, loading: false, error: null }
         },
         setWeatherLoading(state) {
-            state.loading = false;
+            state.loading = true;
             state.error = null;
         },
         setWeatherError(state, action) {
@@ -21,5 +24,19 @@ const weatherByCitySlice = createSlice({
 })
 
 export const { setWeatherByCity, setWeatherLoading, setWeatherError } = weatherByCitySlice.actions
+
+export const getWeatherByCity = (cityName, apiKey) => {
+    return async (dispatch) => {
+        try {
+            dispatch(setWeatherLoading());
+
+            const { data } = await WeatherService.getWeatherByCity(cityName, apiKey)
+            dispatch(setWeatherByCity({ data }))
+        } catch (error) {
+            console.error(error);
+            dispatch(setWeatherError({ message: error.message, status: error.response?.error}))
+        }
+    }
+}
 
 export default weatherByCitySlice.reducer

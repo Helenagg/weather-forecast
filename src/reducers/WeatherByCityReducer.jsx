@@ -26,12 +26,12 @@ const weatherByCitySlice = createSlice({
 
 export const { setWeatherByCity, setWeatherLoading, setWeatherError } = weatherByCitySlice.actions
 
-export const getWeatherByCity = (cityName, apiKey) => {
+export const getWeatherByCity = (cityName, unit, apiKey) => {
     return async (dispatch) => {
         try {
             dispatch(setWeatherLoading());
 
-            const { data } = await WeatherService.getWeatherByCity(cityName, apiKey)
+            const { data } = await WeatherService.getWeatherByCity(cityName, unit, apiKey)
             dispatch(setWeatherByCity({ data }))
         } catch (error) {
             console.error(error);

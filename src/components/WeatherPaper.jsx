@@ -16,8 +16,10 @@ import AirSharpIcon from '@mui/icons-material/AirSharp';
 import { TbTemperatureFahrenheit } from 'react-icons/tb';
 import { TbTemperatureCelsius } from 'react-icons/tb';
 import FavoriteSharpIcon from '@mui/icons-material/FavoriteSharp';
+import { buttonText, weatherText } from '../locale/es';
 
-const WeatherPaper = ({ data, unit, toggleUnit }) => {
+const WeatherPaper = ({ data, unit, toggleUnit, onAddFavorite }) => {
+ 
   return (
     <>
       <Box sx={{ px: 10 }}>
@@ -40,7 +42,7 @@ const WeatherPaper = ({ data, unit, toggleUnit }) => {
                 ),
               }}
             />
-            <Button variant='contained' sx={{ mx: 2, bgcolor: '#000' }} onClick>
+            <Button variant='contained' sx={{ mx: 2, bgcolor: '#000' }} onClick={onAddFavorite}>
               <FavoriteSharpIcon sx={{ color: 'alert.main'}}/>
             </Button>
           </Box>
@@ -73,7 +75,7 @@ const WeatherPaper = ({ data, unit, toggleUnit }) => {
               variant='contained'
               sx={{ mx: 2, my: 2 }}
               onClick={toggleUnit}>
-              Cambiar a: {unit === 'metric' ? '\u00b0F' : '\u00b0C'}
+              {buttonText.CHANGE} {unit === 'metric' ? '\u00b0F' : '\u00b0C'}
             </Button>
             <Box
               sx={{
@@ -84,10 +86,10 @@ const WeatherPaper = ({ data, unit, toggleUnit }) => {
                 ml: 'auto',
               }}>
               <Typography variant='body' sx={{ color: 'primary.dark' }}>
-                Temperatura Máxima: {data.main.temp_max}
+                {weatherText.TEMP_MAX} {data.main.temp_max}
               </Typography>
               <Typography variant='body' sx={{ color: 'primary.dark' }}>
-                Temperatura Mínima: {data.main.temp_min}
+                {weatherText.TEMP_MIN} {data.main.temp_min}
               </Typography>
             </Box>
           </Box>
@@ -95,28 +97,28 @@ const WeatherPaper = ({ data, unit, toggleUnit }) => {
           <Box sx={{ display: 'flex', mt: 1 }}>
             <WiHumidity size={40} />
             <Typography variant='body' sx={{ mt: 1 }}>
-              Humedad: {data.main.humidity}
+              {weatherText.HUMIDITY} {data.main.humidity}
             </Typography>
           </Box>
           <Divider />
           <Box sx={{ display: 'flex', mt: 2, mb: 1, mx: 1 }}>
             <GiPressureCooker size={25} />
             <Typography variant='body' sx={{}}>
-              Presión: {data.main.pressure}
+              {weatherText.PRESSURE} {data.main.pressure}
             </Typography>
           </Box>
           <Divider />
           <Box sx={{ display: 'flex', mt: 2, mb: 1, mx: 1 }}>
             <WaterSharpIcon />
             <Typography variant='body' sx={{}}>
-              Nivel del mar: {data.main.sea_level}
+              {weatherText.LEVEL_SEA} {data.main.sea_level}
             </Typography>
           </Box>
           <Divider />
           <Box sx={{ display: 'flex', mt: 2, mx: 1 }}>
             <AirSharpIcon />
             <Typography variant='body' sx={{}}>
-              Velocidad del viento: {data.wind.speed}
+              {weatherText.WIND_SPEED} {data.wind.speed}
             </Typography>
           </Box>
         </Paper>

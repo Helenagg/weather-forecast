@@ -5,7 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getWeatherByCity } from '../reducers/WeatherByCityReducer';
 import WeatherPaper from '../components/WeatherPaper';
 import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
-import Notification from '../components/Notification';
+import Favorites from '../components/Favorites';
+import { useFavorites } from '../context/FavoritesContext';
+import { buttonText, weatherText } from '../locale/es';
 
 const Home = () => {
   const [city, setCity] = useState('');
@@ -13,8 +15,7 @@ const Home = () => {
   const { data, loading, error } = useSelector(
     ({ weatherByCity }) => weatherByCity
   );
-  console.log('data', data);
-  console.log('unit', unit);
+  const { addFavorite } = useFavorites();
 
   const dispatch = useDispatch();
   console.log('city', city);
@@ -22,11 +23,9 @@ const Home = () => {
     setCity(event.target.value);
   };
 
-  const apiKey = 'e4cdbdef3ca74e57f737ca795b2e971d';
-
   const handleSearch = () => {
     if (city) {
-      dispatch(getWeatherByCity(city, unit, apiKey));
+      dispatch(getWeatherByCity(city, unit));
     }
   };
   const toggleUnit = () => {
@@ -35,7 +34,11 @@ const Home = () => {
     dispatch(getWeatherByCity(city, newUnit, apiKey));
   };
 
-  if (loading) return <div>Cargando...</div>;
+  const handleAddFavorite = () => {
+    addFavorite(data?.name);
+  };
+
+  if (loading) return <div>{weatherText.LOADING}</div>;
 
   return (
     <>
@@ -46,11 +49,11 @@ const Home = () => {
         marginTop={4}
         gap={2}>
         <TextField
-          label='Buscar ciudad'
+          label={weatherText.CITY_SEARCH}
           variant='outlined'
           value={city}
           onChange={handleChange}
-          placeholder='Indica la ciudad que deseas buscar'
+          placeholder={weatherText.INDICATE}
           fullWidth
           sx={{
             width: 600,
@@ -69,15 +72,24 @@ const Home = () => {
           sx={{ p: 1.5 }}
           onClick={handleSearch}
           startIcon={<SearchIcon />}>
-          Buscar
+          {buttonText.SEARCH}
         </Button>
       </Box>
-      {data && (
-        <Box>
-          <WeatherPaper data={data} unit={unit} toggleUnit={toggleUnit} />
-        </Box>
-      )}
-      
+      <Box sx={{ display: 'flex' }}>
+        {data && (
+          <>
+            <Box>
+              <WeatherPaper
+                data={data}
+                unit={unit}
+                toggleUnit={toggleUnit}
+                onAddFavorite={handleAddFavorite}
+              />
+            </Box>
+            <Favorites />
+          </>
+        )}
+      </Box>
     </>
   );
 };

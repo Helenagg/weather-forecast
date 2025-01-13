@@ -1,8 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import WeatherService from '../services/WeatherServices';
 import { toast } from './notificationReducer';
-
-//TODO: Notification for error
+import { weatherText } from '../locale/es';
 
 const weatherByCitySlice = createSlice({
   name: 'weatherByCity',
@@ -27,11 +26,11 @@ const weatherByCitySlice = createSlice({
 export const { setWeatherByCity, setWeatherLoading, setWeatherError } =
   weatherByCitySlice.actions;
 
-export const getWeatherByCity = (cityName, unit, apiKey) => {
+export const getWeatherByCity = (cityName, unit) => {
   return async (dispatch) => {
     try {
       dispatch(setWeatherLoading());
-
+      const apiKey = 'e4cdbdef3ca74e57f737ca795b2e971d';
       const { data } = await WeatherService.getWeatherByCity(
         cityName,
         unit,
@@ -42,11 +41,11 @@ export const getWeatherByCity = (cityName, unit, apiKey) => {
       console.error(error);
       if (error.response && error.response.status === 404) {
         dispatch(
-          setWeatherError({ message: 'Ciudad no encontrada', status: 404 })
+          setWeatherError({ message: weatherText.NOT_FOUND, status: 404 })
         );
         dispatch(
           toast(
-            'No se ha podido encontrar el clima para la ciudad seleccionada'
+            weatherText.CITY_ERROR
           )
         );
       } else {
@@ -56,7 +55,7 @@ export const getWeatherByCity = (cityName, unit, apiKey) => {
             status: error.response?.status,
           })
         );
-        dispatch(toast('Ha ocurrido un error al obtener los datos del clima'));
+        dispatch(toast(weatherText.ERROR));
       }
     }
   };

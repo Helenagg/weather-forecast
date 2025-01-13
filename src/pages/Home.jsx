@@ -8,7 +8,7 @@ import {
 import { useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { useDispatch, useSelector } from 'react-redux';
-import { getWeatherByCity } from '../reducers/WeatherByCityReducer';
+import { getWeatherByCity } from '../reducers/weatherByCityReducer';
 import WeatherPaper from '../components/WeatherPaper';
 import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
 import Favorites from '../components/Favorites';
@@ -24,7 +24,6 @@ const Home = () => {
   const { addFavorite } = useFavorites();
 
   const dispatch = useDispatch();
-  console.log('city', city);
   const handleChange = (event) => {
     setCity(event.target.value);
   };
@@ -83,10 +82,10 @@ const Home = () => {
         </Button>
       </Box>
 
-      <Box sx={{ display: 'flex' }}>
+      <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 2 }}>
         {data && (
           <>
-            <Box>
+            <Box sx={{ gridColumn: 'span 2' }}>
               <WeatherPaper
                 data={data}
                 unit={unit}

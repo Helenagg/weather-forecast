@@ -61,9 +61,9 @@ const WeatherPaper = ({ data, unit, toggleUnit, onAddFavorite }) => {
             component='section'
             sx={{ display: 'flex', justifyContent: 'flex-start', mt: 2 }}>
             <Typography
-              variant='h2'
+              variant='h4'
               sx={{ fontWeight: 'bold', color: 'primary.dark' }}>
-              <ThermostatIcon sx={{ fontSize: 50, pt: 1 }} />
+              <ThermostatIcon sx={{ fontSize: 40, pt: 1 }} />
               {data.main.temp}
               {unit === 'metric' ? (
                 <TbTemperatureCelsius />

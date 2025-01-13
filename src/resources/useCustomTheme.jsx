@@ -15,6 +15,9 @@ const useCustomTheme = createTheme({
       gray: '#607D8B',
       'gray-light': '#ECEFF1',
     },
+    alert: {
+      main: '#ff0800'
+    }
   },
 });
 

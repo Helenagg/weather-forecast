@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import { ThemeProvider } from '@emotion/react';
 import useCustomTheme from './resources/useCustomTheme';
 import NavBar from './components/NavBar';
+import Notification from './components/Notification';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
         </Routes>
+        <Notification />
       </ThemeProvider>
     </>
   );

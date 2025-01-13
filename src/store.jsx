@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import WeatherByCityReducer from './reducers/WeatherByCityReducer'
+import weatherByCityReducer from './reducers/weatherByCityReducer'
 import notificationReducer from "./reducers/notificationReducer";
 
 export const store = configureStore({
     reducer: {
-        weatherByCity: WeatherByCityReducer,
+        weatherByCity: weatherByCityReducer,
         notification: notificationReducer,
     }
 })

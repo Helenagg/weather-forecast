@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getWeatherByCity } from '../reducers/WeatherByCityReducer';
 import WeatherPaper from '../components/WeatherPaper';
 import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
+import Notification from '../components/Notification';
 
 const Home = () => {
   const [city, setCity] = useState('');
@@ -33,6 +34,8 @@ const Home = () => {
     setUnit(unit === 'metric' ? 'imperial' : 'metric');
     dispatch(getWeatherByCity(city, newUnit, apiKey));
   };
+
+  if (loading) return <div>Cargando...</div>;
 
   return (
     <>
@@ -70,11 +73,11 @@ const Home = () => {
         </Button>
       </Box>
       {data && (
-      <Box>
-        <WeatherPaper data={data} unit={unit} toggleUnit={toggleUnit}/>
-      </Box>
-
+        <Box>
+          <WeatherPaper data={data} unit={unit} toggleUnit={toggleUnit} />
+        </Box>
       )}
+      
     </>
   );
 };

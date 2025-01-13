@@ -11,7 +11,17 @@ const Notification = () => {
     <Snackbar
       open={true}
       anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
-      <Alert severity={type}>{msg}</Alert>
+      <Alert
+        severity={type}
+        sx={{
+          bgcolor: 'alert.main',
+          color: '#fff',
+          '& .MuiAlert-icon': {
+            color: 'white',
+          },
+        }}>
+        {msg}
+      </Alert>
     </Snackbar>
   );
 };

@@ -1,4 +1,10 @@
-import { Box, Button, InputAdornment, TextField } from '@mui/material';
+import {
+  Box,
+  Button,
+  Container,
+  InputAdornment,
+  TextField,
+} from '@mui/material';
 import { useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { useDispatch, useSelector } from 'react-redux';
@@ -31,7 +37,7 @@ const Home = () => {
   const toggleUnit = () => {
     const newUnit = unit === 'metric' ? 'imperial' : 'metric';
     setUnit(unit === 'metric' ? 'imperial' : 'metric');
-    dispatch(getWeatherByCity(city, newUnit, apiKey));
+    dispatch(getWeatherByCity(city, newUnit));
   };
 
   const handleAddFavorite = () => {
@@ -47,7 +53,8 @@ const Home = () => {
         justifyContent='center'
         alignItems='center'
         marginTop={4}
-        gap={2}>
+        gap={2}
+        >
         <TextField
           label={weatherText.CITY_SEARCH}
           variant='outlined'
@@ -75,6 +82,7 @@ const Home = () => {
           {buttonText.SEARCH}
         </Button>
       </Box>
+
       <Box sx={{ display: 'flex' }}>
         {data && (
           <>

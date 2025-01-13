@@ -2,13 +2,22 @@ import CycloneIcon from '@mui/icons-material/Cyclone';
 import {
   AppBar,
   Box,
-  Button,
   CssBaseline,
   Toolbar,
   Typography,
 } from '@mui/material';
+import { Link } from 'react-router-dom';
 
-const navItems = ['Instrucciones', 'Clima'];
+const navItems = [
+  {
+    title: 'Clima',
+    path: '/'
+  },
+  {
+    title: 'Instrucciones',
+    path: '/instructions'
+  }
+   ];
 
 const NavBar = () => {
   return (
@@ -26,9 +35,9 @@ const NavBar = () => {
           </Typography>
           <Box sx={{ px: 10, display: 'flex', gap: 4 }}>
             {navItems.map((item) => (
-              <Button key={item} sx={{ color: '#fff', fontWeight: 'bold', }}>
-                {item}
-              </Button>
+              <Link key={item.title} to={item.path} style={{ color: '#fff', fontWeight: 'bold', }}>
+                {item.title}
+              </Link>
             ))}
           </Box>
         </Toolbar>
